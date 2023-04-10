@@ -62,7 +62,23 @@
         }).then(response => response.json)
     }
     //GET
-
+    function buscarDados() {
+        const cpf = document.getElementById('cpfAtualizar').value;
+        fetch('http://localhost:3000/pessoas', {
+            method: 'GET',
+        }).then(response => response.json())
+        .then(data =>{
+            const pessoaEncontrada = data.find(pessoa => pessoa.cpf === cpf)
+            if(pessoaEncontrada) {
+                document.getElementById('nomeAtualizar').value = pessoaEncontrada.nome;
+                document.getElementById('idadeAtualizar').value = pessoaEncontrada.idade;
+                document.getElementById('cpfAtualizar').value = pessoaEncontrada.cpf;
+                document.getElementById('id').value = pessoaEncontrada.id
+            }else {
+                alert(`deu errado, o cpf ${cpf} não existe`)
+            }
+        })
+    }
     //PUT
 
     //DELETE
